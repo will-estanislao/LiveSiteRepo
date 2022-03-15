@@ -48,27 +48,22 @@ namespace core
            this.m_emailAddress = emailAddress;
        }
 
-       // Takes contact and puts it into a comma separated list
+       
        /**
-        * 
+        * Takes contact and puts it into a comma separated list
         * 
         * @returns {(string | null)}
         */
        serialize(): string | null
        {
            // Returns a value or returns no. Puts it into local storage
-           if (
-               this.FullName !== "" &&
-               this.ContactNumber !== "" &&
-               this.EmailAddress !== ""
-           ) 
+           if (this.FullName !== "" && this.ContactNumber !== "" && this.EmailAddress !== "") 
            {
                return `${this.FullName},${this.ContactNumber},${this.EmailAddress}`;
-           } else 
+           }
+            else 
            {
-               console.error(
-                   "One or more properties of the Contact are missing or empty"
-               );
+               console.error("One or more properties of the Contact are missing or empty");
                return null;
            }
        }
@@ -82,7 +77,7 @@ namespace core
         * @param {string} data
         * @returns {void} 
         */
-       deserialize(data : string)
+       deserialize(data : string): void
         {
            let propertyArray : string[] = data.split(",");
            this.FullName = propertyArray[0];

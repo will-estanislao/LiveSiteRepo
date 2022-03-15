@@ -16,7 +16,7 @@ namespace core
         /**
          * @returns {string}
          */
-        public get ActiveLink()
+        public get ActiveLink(): string
         {
             return this.m_activeLink;
         }
@@ -33,18 +33,18 @@ namespace core
         /**
          * @returns {string}
          */
-         public get LinkData()
+         public get LinkData():  string
          {
              return this.m_linkData;
          }
  
          /**
-          * @param {string} link
+          * @param {string} data
           * @returns {void}
           */
-         public set LinkData(link: string)
+         public set LinkData(data: string)
          {
-             this.m_linkData = link;
+             this.m_linkData = data;
          }
         // Constructor function
         constructor()
@@ -89,7 +89,7 @@ namespace core
          */
         Find(route: string): number
         {
-            return this.m_routingTable.lastIndexOf(route);
+            return this.m_routingTable.indexOf(route);
         }
 
         /**
@@ -120,7 +120,7 @@ namespace core
          * @override
          * @returns {string}
          */
-        toString()
+        toString() : string
         {
             return this.m_routingTable.toString();
         }

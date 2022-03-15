@@ -72,7 +72,7 @@ namespace core
             return `Display Name:  ${this.DisplayName} \nEmail Address: ${this.EmailAddress} \nUsername:    ${this.Username} \nPassword:    ${this.Password}`;
         }
 
-        // Utility 
+        // Utility methods
         /**
          * 
          * @returns {{DisplayName: string, EmailAddress: string, Username: string}}
