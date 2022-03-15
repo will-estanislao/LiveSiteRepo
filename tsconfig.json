@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "CommonJS",       
+        "sourceMap": true,          // Code hinting for typescript specific stuff
+        "removeComments": true,     // Emit: Take typescript to transfer to js - generate js file and will remove comments from it
+        "strict": true,
+        "noImplicitAny": true,      // If there is no type declaration, gives an error
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "noImplicitThis" : true,
+        "alwaysStrict": true,
+        "noImplicitReturns" :true,  // Must specify a return type
+
+    },
+    "exclude": ["node_modules"]     // Can include/exclude files
+}
