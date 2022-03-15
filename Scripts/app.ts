@@ -69,7 +69,7 @@
     {
         router.ActiveLink = link; // this replaces any instance of href to load link
 
-        AuthGuard();    // Call authguard to check if user is logged in 
+        AuthGuard();              // Call authguard to check if user is logged in 
 
         router.LinkData = data;
         history.pushState({}, "", router.ActiveLink); 
@@ -393,9 +393,9 @@
         }
 
         $("#addButton").on("click", ()=>
-            {
-                LoadLink("edit", "add");
-            });
+        {
+            LoadLink("edit", "add");
+        });
     }
 
     function DisplayEditPage(): void
@@ -518,7 +518,6 @@
             let newUser = new core.User();
 
             // console.log(username); // for username check
-
             $.get("./Data/users.json", function(data)
             {
                 //for every user in users.json file
