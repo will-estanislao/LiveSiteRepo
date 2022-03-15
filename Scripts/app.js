@@ -6,7 +6,7 @@
         ];
         if (protected_routes.indexOf(router.ActiveLink) > -1) {
             if (!sessionStorage.getItem("user")) {
-                location.href = "login";
+                router.ActiveLink = "login";
             }
         }
     }
@@ -16,7 +16,6 @@
         router.LinkData = data;
         history.pushState({}, "", router.ActiveLink);
         document.title = router.ActiveLink.substring(0, 1).toUpperCase() + router.ActiveLink.substring(1);
-        console.log(document.title);
         $("ul>li>a").each(function () {
             $(this).removeClass("active");
         });
@@ -64,7 +63,6 @@
         let callback = ActiveLinkCallBack();
         $.get(`./Views/content/${page_name}.html`, function (html_date) {
             $("main").html(html_date);
-            CheckLogin();
             callback();
         });
     }
@@ -76,9 +74,9 @@
     function DisplayHomePage() {
         console.log("Homepage loaded");
         $("#AboutUsButton").on("click", () => {
-            location.href = "/about";
+            LoadLink("about");
         });
-        $("main").append(`<p id="ArticleParagraph" class = "mt-3"> This is a Article Paragraph! </p>`);
+        $("main").append(`<p id="MainParagraph" class = "mt-3"> This is a Main Paragraph! </p>`);
         $("main").append(`<article><p id="ArticleParagraph" class="mt-3"> This is the Article Paragraph"</p></article>`);
     }
     function DisplayProductsPage() {
@@ -160,9 +158,6 @@
                 index++;
             }
             contactList.innerHTML = data;
-            $("#addButton").on("click", () => {
-                LoadLink("edit", "add");
-            });
             $("button.delete").on("click", function () {
                 if (confirm("Are you sure you want to delete contact?")) {
                     localStorage.removeItem($(this).val());
@@ -173,22 +168,24 @@
                 LoadLink("edit", $(this).val());
             });
         }
+        $("#addButton").on("click", () => {
+            LoadLink("edit", "add");
+        });
     }
     function DisplayEditPage() {
         console.log("Edit Page Loaded");
         ContactFormValidation();
         let page = router.LinkData;
-        console.log(page);
         switch (page) {
             case "add":
                 {
                     $("main>h1").text("Add Contact");
                     $("#editButton").html(`<i class="fas fa-plus-circle fa-lg"></i> Add`);
                     $("#editButton").on("click", (event) => {
+                        event.preventDefault();
                         let fullName = document.forms[0].fullName.value;
                         let contactNumber = document.forms[0].contactNumber.value;
                         let emailAddress = document.forms[0].emailAddress.value;
-                        event.preventDefault();
                         AddContact(fullName, contactNumber, emailAddress);
                         LoadLink("contact-list");
                     });
@@ -221,10 +218,11 @@
     }
     function CheckLogin() {
         if (sessionStorage.getItem("user")) {
-            $("#login").html(`<a id="logout" class="nav-link" data=""><i class="fas fa-sign-out-alt"></i> Logout</a>`);
+            $("#login").html(`<a id="logout" class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>`);
             $("#logout").on("click", function () {
                 sessionStorage.clear();
-                $("#logout").html(`<a class="nav-link" data="login"><i class="fas fa-sign-in-alt"></i> Login</a>`);
+                $("#login").html(`<a class="nav-link" data="login""><i class="fas fa-sign-in-alt"></i> Login</a>`);
+                AddNavigationEvents();
                 LoadLink("login");
             });
         }
@@ -250,7 +248,6 @@
                 if (success) {
                     sessionStorage.setItem("user", newUser.serialize());
                     messageArea.removeAttr("class").hide();
-                    $("#contactButton").show();
                     LoadLink("contact-list");
                 }
                 else {
@@ -285,7 +282,6 @@
             default:
                 console.error("ERROR: callback does not exist: " + router.ActiveLink);
                 return new Function();
-                break;
         }
     }
     function Start() {

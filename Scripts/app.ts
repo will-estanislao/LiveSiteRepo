@@ -491,6 +491,8 @@
                     `<a class="nav-link" data="login""><i class="fas fa-sign-in-alt"></i> Login</a>`
                 );
 
+                AddNavigationEvents();
+
                 // Redirect back to login
                 LoadLink("login");
             });

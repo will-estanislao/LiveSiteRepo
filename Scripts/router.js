@@ -14,8 +14,8 @@ var core;
         get LinkData() {
             return this.m_linkData;
         }
-        set LinkData(link) {
-            this.m_linkData = link;
+        set LinkData(data) {
+            this.m_linkData = data;
         }
         constructor() {
             this.m_activeLink = "";
@@ -29,7 +29,7 @@ var core;
             this.m_routingTable = routingTable;
         }
         Find(route) {
-            return this.m_routingTable.lastIndexOf(route);
+            return this.m_routingTable.indexOf(route);
         }
         Remove(route) {
             if (this.Find(route) > -1) {

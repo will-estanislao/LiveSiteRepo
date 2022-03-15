@@ -29,9 +29,7 @@ var core;
             this.m_emailAddress = emailAddress;
         }
         serialize() {
-            if (this.FullName !== "" &&
-                this.ContactNumber !== "" &&
-                this.EmailAddress !== "") {
+            if (this.FullName !== "" && this.ContactNumber !== "" && this.EmailAddress !== "") {
                 return `${this.FullName},${this.ContactNumber},${this.EmailAddress}`;
             }
             else {
