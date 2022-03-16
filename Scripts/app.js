@@ -63,6 +63,7 @@
         let callback = ActiveLinkCallBack();
         $.get(`./Views/content/${page_name}.html`, function (html_date) {
             $("main").html(html_date);
+            CheckLogin();
             callback();
         });
     }
@@ -122,17 +123,13 @@
         ContactFormValidation();
         let sendButton = document.getElementById("sendButton");
         let subscribeCheckbox = document.getElementById("subscribeCheckbox");
-        sendButton.addEventListener("click", function (event) {
+        sendButton.addEventListener("click", function () {
             if (subscribeCheckbox.checked) {
                 let fullName = document.forms[0].fullName.value;
                 let contactNumber = document.forms[0].contactNumber.value;
                 let emailAddress = document.forms[0].emailAddress.value;
                 console.log("Subscriber Checked");
-                let contact = new core.Contact(fullName, contactNumber, emailAddress);
-                if (contact.serialize()) {
-                    let key = contact.FullName.substring(0, 1) + Date.now();
-                    localStorage.setItem(key, contact.serialize());
-                }
+                AddContact(fullName, contactNumber, emailAddress);
             }
         });
     }

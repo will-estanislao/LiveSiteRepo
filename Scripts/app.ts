@@ -174,10 +174,13 @@
     function LoadContent(): void
     {
         let page_name = router.ActiveLink; // alias for active link
-        let callback = ActiveLinkCallBack(); // Returns a reference to the correct function
+        let callback: Function = ActiveLinkCallBack(); // Returns a reference to the correct function
         $.get(`./Views/content/${page_name}.html`, function(html_date)
         {
             $("main").html(html_date);
+
+            CheckLogin();
+
             callback(); // Calling correct function
         });
     }
@@ -244,7 +247,6 @@
             // Store in local storage
             localStorage.setItem(key, contact.serialize() as string); // Cast contact.serialize() as string and will not return null
         }
-
     }
 
     /**
@@ -303,7 +305,7 @@
         let subscribeCheckbox = document.getElementById("subscribeCheckbox") as HTMLInputElement; // Special type
 
         // When user adds new contact
-        sendButton.addEventListener("click", function(event)
+        sendButton.addEventListener("click", function()
         {
             // Just check if box is checked, instead of event listening
             // Only if subscribe checkbox is checked
@@ -316,15 +318,17 @@
                 console.log("Subscriber Checked");
                 // console.log(contact.serialize());
 
-                let contact = new core.Contact(fullName, contactNumber, emailAddress);
-                if(contact.serialize())
-                {
-                    // Unique key for each contact, using first chara of their name and current date
-                    let key = contact.FullName.substring(0, 1) + Date.now();
+                AddContact(fullName, contactNumber,emailAddress);
 
-                    // Store in local storage
-                    localStorage.setItem(key, contact.serialize() as string);
-                }
+                // let contact = new core.Contact(fullName, contactNumber, emailAddress);
+                // if(contact.serialize())
+                // {
+                //     // Unique key for each contact, using first chara of their name and current date
+                //     let key = contact.FullName.substring(0, 1) + Date.now();
+
+                //     // Store in local storage
+                //     localStorage.setItem(key, contact.serialize() as string);
+                // }
             }
         });
     }
@@ -352,7 +356,7 @@
                 let contact = new core.Contact();
                 
                 // contactData retrieved from local storage
-                contact.deserialize(contactData);
+                contact.deserialize(contactData as string);
 
                 console.log(contact.toString);
 
